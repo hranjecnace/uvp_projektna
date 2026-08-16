@@ -37,24 +37,25 @@ while leto < 2027:
             ime = None
             priimek = None
 
-        narodnost = obstaja(vrstica.select_one(".data-table__country-full"))
+        drzava = obstaja(vrstica.select_one(".data-table__country-full"))
         mesto = obstaja(vrstica.select_one(".data-table__section-start"))
-        medalja = obstaja(vrstica.select_one(".data-table__medal-char"))
+        medalja = obstaja(vrstica.select_one(".data-table__award-circle"))
         skupne_tocke = obstaja(vrstica.select_one(".data-table__total-cell"))
         naloge = vrstica.select("td.data-table__num:not(.data-table__total-cell):not([data-value])")
         tocke = [td.text.strip() if td.text else None for td in naloge][1:]
         
 
         vsi_podatki.append({
-            "kraj" : kraj,
-            "drzava" : drzava_tekmovanja,
-            "ime" : ime,
-            "priimek" : priimek,
-            "narodnost" : narodnost,
-            "mesto" : mesto,
-            "medalja" : medalja,
-            "skupne tocke" : skupne_tocke,
-            "tocke" : tocke
+            "Leto" : leto,
+            "Kraj" : kraj,
+            "Gostiteljica" : drzava_tekmovanja,
+            "Ime" : ime,
+            "Priimek" : priimek,
+            "Država" : drzava,
+            "Mesto" : mesto,
+            "Medalja" : medalja,
+            "Skupno" : skupne_tocke,
+            "Točke" : tocke
         })
     leto +=1
 
