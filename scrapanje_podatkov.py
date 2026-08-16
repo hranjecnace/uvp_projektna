@@ -57,6 +57,7 @@ while leto < 2027:
             "Skupno" : skupne_tocke,
             "Točke" : tocke
         })
+    print(f"Leto {leto} obdelano")
     leto +=1
 
 df = pd.DataFrame(vsi_podatki)
