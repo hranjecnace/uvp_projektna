@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup, NavigableString
 import pandas as pd
 
 url = "https://moresults.org/competitions/memo-"
-pari = []  # seznam (država, tekmovalec) parov
+pari = []
 
 leto = 2007
 while leto < 2026:
@@ -52,8 +52,7 @@ while leto < 2026:
 
     print(f"Leto {leto} obdelano")
     leto += 1
-
-# odstrani podvojene pare (ista oseba za isto državo v več letih -> en sam vnos)
+    
 pari_unikatni = sorted(set(pari))
 
 df_pari = pd.DataFrame(pari_unikatni, columns=["Država", "Tekmovalec"])

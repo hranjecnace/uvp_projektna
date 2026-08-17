@@ -42,7 +42,7 @@ while leto < 2027:
         medalja = obstaja(vrstica.select_one(".data-table__award-circle"))
         skupne_tocke = obstaja(vrstica.select_one(".data-table__total-cell"))
         naloge = vrstica.select("td.data-table__num:not(.data-table__total-cell):not([data-value])")
-        tocke = [td.text.strip() if td.text else None for td in naloge][1:]
+        tocke = [int(td.text.strip()) if td.text else None for td in naloge][1:]
         
 
         vsi_podatki.append({
