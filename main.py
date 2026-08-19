@@ -1,5 +1,5 @@
-from scrapanje_podatkov import imo_scrape
 from scrapanje_ostalo import poberi_tekmovalce
+from scrapanje_podatkov import imo_scrape
 
 imo_scrape(1959, 2026)
 poberi_tekmovalce("memo", 2007, 2025)

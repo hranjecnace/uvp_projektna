@@ -1,6 +1,7 @@
+import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-import pandas as pd
+
 
 def imo_scrape(zacetno_leto, koncno_leto):
 
@@ -25,15 +26,34 @@ def imo_scrape(zacetno_leto, koncno_leto):
             leto += 1
             continue
 
-        kraj = soup.select_one(".results-page__subtitle").get_text(strip=True).split(",")[0]
-        drzava_tekmovanja = soup.select_one(".results-page__subtitle").get_text(strip=True).split(",")[1].split("·")[0].strip()
-        stevilo_tekmovalcev = soup.select_one(".results-page__subtitle").get_text(strip=True).split(",")[1].split("·")[1].strip().split(" ")[0].strip()
+        kraj = (
+            soup.select_one(".results-page__subtitle")
+            .get_text(strip=True)
+            .split(",")[0]
+        )
+        drzava_tekmovanja = (
+            soup.select_one(".results-page__subtitle")
+            .get_text(strip=True)
+            .split(",")[1]
+            .split("·")[0]
+            .strip()
+        )
+        stevilo_tekmovalcev = (
+            soup.select_one(".results-page__subtitle")
+            .get_text(strip=True)
+            .split(",")[1]
+            .split("·")[1]
+            .strip()
+            .split(" ")[0]
+            .strip()
+        )
 
         vrstice = soup.select("tbody tr")
 
-
         for vrstica in vrstice:
-            span = vrstica.select_one("span[data-person-name], span[data-results-anomaly-name]")
+            span = vrstica.select_one(
+                "span[data-person-name], span[data-results-anomaly-name]"
+            )
             if span:
                 ime = span.get("data-name")
                 priimek = span.get("data-surname")
@@ -45,26 +65,29 @@ def imo_scrape(zacetno_leto, koncno_leto):
             mesto = obstaja(vrstica.select_one(".data-table__section-start"))
             medalja = obstaja(vrstica.select_one(".data-table__award-circle"))
             skupne_tocke = obstaja(vrstica.select_one(".data-table__total-cell"))
-            naloge = vrstica.select("td.data-table__num:not(.data-table__total-cell):not([data-value])")
+            naloge = vrstica.select(
+                "td.data-table__num:not(.data-table__total-cell):not([data-value])"
+            )
             tocke = [int(td.text.strip()) if td.text else None for td in naloge][1:]
 
-
-            vsi_podatki.append({
-                "Leto" : leto,
-                "Kraj" : kraj,
-                "Število tekmovalcev" : stevilo_tekmovalcev,
-                "Gostiteljica" : drzava_tekmovanja,
-                "Ime" : ime,
-                "Priimek" : priimek,
-                "Država" : drzava,
-                "Mesto" : mesto,
-                "Medalja" : medalja,
-                "Skupno" : skupne_tocke,
-                "Točke" : tocke
-            })
+            vsi_podatki.append(
+                {
+                    "Leto": leto,
+                    "Kraj": kraj,
+                    "Število tekmovalcev": stevilo_tekmovalcev,
+                    "Gostiteljica": drzava_tekmovanja,
+                    "Ime": ime,
+                    "Priimek": priimek,
+                    "Država": drzava,
+                    "Mesto": mesto,
+                    "Medalja": medalja,
+                    "Skupno": skupne_tocke,
+                    "Točke": tocke,
+                }
+            )
 
         print(f"Leto {leto} obdelano")
-        leto +=1
+        leto += 1
 
     df = pd.DataFrame(vsi_podatki)
     df.to_csv("csv_datoteke/imo.csv", index=False, encoding="utf8")
