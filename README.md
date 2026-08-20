@@ -9,12 +9,14 @@ Mednarodna matematična olimpijada (IMO) je najprestižnejže matematično tekmo
 Analizirali bomo naslednje stvari:
 * Najuspešnejše države in tekmovalce
 * Zmagovalne države
-* Rezultati gostiteljev
+* Rezultate gostiteljev
 * Število sodelujočih
 * Leto pridružitve držav
 * Uspeh Slovenije
-* Težavnost nalog
+* Razlike v težavnosti nalog
+* Težavnost nalog čez leta
 * Število enakih tekmovalcev
+* Medalje
 * Primerjava z MEMO
 * Primerjava z ostalimi tekmovanji
 

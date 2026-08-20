@@ -26,11 +26,6 @@ def imo_scrape(zacetno_leto, koncno_leto):
             leto += 1
             continue
 
-        kraj = (
-            soup.select_one(".results-page__subtitle")
-            .get_text(strip=True)
-            .split(",")[0]
-        )
         drzava_tekmovanja = (
             soup.select_one(".results-page__subtitle")
             .get_text(strip=True)
@@ -73,7 +68,6 @@ def imo_scrape(zacetno_leto, koncno_leto):
             vsi_podatki.append(
                 {
                     "Leto": leto,
-                    "Kraj": kraj,
                     "Število tekmovalcev": stevilo_tekmovalcev,
                     "Gostiteljica": drzava_tekmovanja,
                     "Ime": ime,
